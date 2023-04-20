@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 require('dotenv').config();
+const userSchema = require('./models/users');
 
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {
@@ -8,29 +9,11 @@ mongoose.connect(process.env.MONGO_URI)
     console.error(err);
 });
 
-
-const {Schema} = mongoose;
-
-const userSchema = new Schema({
-    email:
-        {
-            type: String,
-            required: true,
-            unique: true
-        }
-    ,
-    password: {
-        type: String,
-        required: true,
-        unique: true
-    }
-});
-
 const User = mongoose.model('User', userSchema);
 
 const userInstance = new User({
-    email : "ranamohit@gmail.com",
-    password : "Mohit@2001"
+    email : "mohit@gmail.com",
+    password : "Mohit@2002"
 });
 
 userInstance.save()
