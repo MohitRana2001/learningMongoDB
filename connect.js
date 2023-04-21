@@ -20,3 +20,5 @@ userInstance.save()
 .then( () => {
     process.exit(0);
 });
+
+module.exports = mongoose.connection;
