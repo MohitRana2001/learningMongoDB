@@ -14,14 +14,17 @@ app.use(bodyParser.json());
 const User = mongoose.model('User', userSchema);
 
 app.get('/', (req,res) => {
-  res.send("Hello there!!!");
+  res.sendFile(__dirname+"/index.html");
 });
 
 app.post('/', (req,res) => {
-  const user = req.body.user;
-  const password = req.body.pass;
+  const userEmail = req.body.user;
+  const pass = req.body.pass;
 
-  const newUser = new User({user, pass : password});
+  const newUser = new User({
+    email: userEmail,
+    password : pass
+  });
 
   newUser.save()
   .then(() => res.send("new user saved succeddfully"))
@@ -29,8 +32,12 @@ app.post('/', (req,res) => {
   .catch((err) => {
     res.send(err);
   });
-  res.redirect()
+  // res.redirect("/success");
   // res.send("We recieeved your credentials");
+});
+
+app.get("/success" , () => {
+  res.send("Successfully stored the new user");
 })
 
 app.listen(port, () => {
